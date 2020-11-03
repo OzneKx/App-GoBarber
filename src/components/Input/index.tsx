@@ -1,10 +1,10 @@
 import React, {
-  useState,
-  useCallback,
   useEffect,
   useRef,
   useImperativeHandle,
   forwardRef,
+  useState,
+  useCallback,
 } from 'react';
 import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
@@ -24,7 +24,8 @@ interface InputRef {
   focus(): void;
 }
 
-const Input: React.RefForwardingComponent<InputRef, InputProps> = (
+const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
+  // eslint-disable-next-line react/prop-types
   { name, icon, ...rest },
   ref,
 ) => {
@@ -57,7 +58,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value) {
+      setValue(value) {
         inputValueRef.current.value = value;
         inputElementRef.current.setNativeProps({ text: value });
       },
@@ -73,7 +74,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
       <Icon
         name={icon}
         size={20}
-        color={isFocused || isFilled ? '#ff9000' : '#666360'}
+        color={isFocused || isFilled ? '#FF9000' : '#666360'}
       />
 
       <TextInput
